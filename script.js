@@ -56,6 +56,11 @@ fetch("https://striveschool-api.herokuapp.com/books")
       btnDelete.textContent = "Scarta";
       cardBody.appendChild(btnDelete);
 
+      const btnBuy = document.createElement("a");
+      btnBuy.classList.add("btn", "btn-success", "ms-2");
+      btnBuy.textContent = "Compra ora";
+      cardBody.appendChild(btnBuy);
+
       // il click del bottone scatena funzione per l'eliminazione del libro
       btnDelete.addEventListener("click", () => {
         // const id = book.asin;
