@@ -56,11 +56,6 @@ fetch("https://striveschool-api.herokuapp.com/books")
       btnDelete.textContent = "Scarta";
       cardBody.appendChild(btnDelete);
 
-      const btnBuy = document.createElement("a");
-      btnBuy.classList.add("btn", "btn-success", "ms-2");
-      btnBuy.textContent = "Compra ora";
-      cardBody.appendChild(btnBuy);
-
       // il click del bottone scatena funzione per l'eliminazione del libro
       btnDelete.addEventListener("click", () => {
         // const id = book.asin;
@@ -69,6 +64,17 @@ fetch("https://striveschool-api.herokuapp.com/books")
         // cerca sul DOM l'elemento con l'id corrispondente al libro da eliminare
 
         col.remove();
+      });
+
+      const btnBuy = document.createElement("a");
+      btnBuy.classList.add("btn", "btn-success", "ms-2");
+      btnBuy.textContent = "Compra ora";
+      cardBody.appendChild(btnBuy);
+
+      // il click del bottone scatena funzione per l'aggiunta del libro al carrello
+      cardBody.addEventListener("click", () => {
+        let productId = book.asin;
+        localStorage.setItem(`product${i}`, productId);
       });
     });
   })
