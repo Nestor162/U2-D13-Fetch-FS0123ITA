@@ -1,3 +1,9 @@
+const savedBooks = [];
+const cart = document.querySelector(".offcanvas-body");
+const cartTitle = document.querySelector(".offcanvas-title");
+const cartBody = document.querySelector(".offcanvas-body > p");
+const list = document.querySelector(".offcanvas-body > ul");
+
 fetch("https://striveschool-api.herokuapp.com/books")
   .then(response => {
     console.log(response);
@@ -74,21 +80,19 @@ fetch("https://striveschool-api.herokuapp.com/books")
       // il click del bottone scatena funzione per l'aggiunta del libro al carrello
       cardBody.addEventListener("click", () => {
         // si salva il libro sulla localStorage
-        let productId = book.asin;
-        localStorage.setItem(`product${i}`, productId);
-
-        const cartTitle = document.querySelector(".offcanvas-title");
-        const cartBody = document.querySelector(".offcanvas-body > p");
+        savedBooks.push(book.title);
+        localStorage.setItem(`cart-items`, savedBooks);
 
         // modifico il messaggio default
         cartTitle.textContent = "Stai per comprare prodotti...";
         cartBody.textContent = " ";
 
-        const cart = document.querySelector(".offcanvas-body");
-        const list = document.createElement("ul");
-        let bookOnCart = (document.createElement("li").textContent = book.title);
+        let bookOnCart = document.createElement("li");
+        bookOnCart.textContent = book.title;
         cart.appendChild(list);
         list.append(bookOnCart);
+
+        col.remove();
       });
     });
   })
@@ -106,6 +110,26 @@ fetch("https://striveschool-api.herokuapp.com/books")
 // };
 
 window.onload = () => {
-  let books = localStorage.getItem("product2");
-  console.log(books);
+  let cartBooks = localStorage.getItem("cart-items");
+  cartBooks = cartBooks.split(",");
+
+  cartBooks.forEach(element => {
+    savedBooks.push(element);
+  });
+
+  console.log(savedBooks);
+
+  // modifico il messaggio default
+  if (cartBooks) {
+    cartTitle.textContent = "Stai per comprare prodotti...";
+    cartBody.textContent = " ";
+
+    cart.appendChild(list);
+
+    for (book of savedBooks) {
+      let bookOnCart = document.createElement("li");
+      bookOnCart.textContent = book;
+      list.append(bookOnCart);
+    }
+  }
 };
