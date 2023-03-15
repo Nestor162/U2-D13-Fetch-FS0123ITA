@@ -78,7 +78,7 @@ fetch("https://striveschool-api.herokuapp.com/books")
       cardBody.appendChild(btnBuy);
 
       // il click del bottone scatena funzione per l'aggiunta del libro al carrello
-      cardBody.addEventListener("click", () => {
+      btnBuy.addEventListener("click", () => {
         // si salva il libro sulla localStorage
         savedBooks.push(book.title);
         localStorage.setItem(`cart-items`, savedBooks);
