@@ -73,8 +73,22 @@ fetch("https://striveschool-api.herokuapp.com/books")
 
       // il click del bottone scatena funzione per l'aggiunta del libro al carrello
       cardBody.addEventListener("click", () => {
+        // si salva il libro sulla localStorage
         let productId = book.asin;
         localStorage.setItem(`product${i}`, productId);
+
+        const cartTitle = document.querySelector(".offcanvas-title");
+        const cartBody = document.querySelector(".offcanvas-body > p");
+
+        // modifico il messaggio default
+        cartTitle.textContent = "Stai per comprare prodotti...";
+        cartBody.textContent = " ";
+
+        const cart = document.querySelector(".offcanvas-body");
+        const list = document.createElement("ul");
+        let bookOnCart = (document.createElement("li").textContent = book.title);
+        cart.appendChild(list);
+        list.append(bookOnCart);
       });
     });
   })
@@ -90,3 +104,8 @@ fetch("https://striveschool-api.herokuapp.com/books")
 //     .then(res => console.log(res))
 //     .catch(error => console.log(error));
 // };
+
+window.onload = () => {
+  let books = localStorage.getItem("product2");
+  console.log(books);
+};
